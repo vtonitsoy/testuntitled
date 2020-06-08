@@ -3,6 +3,13 @@ import config
 import re
 from telebot import types
 from datetime import datetime	
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello_world():
+    return 'Hello World!'
 
 bot = telebot.TeleBot(config.TOKEN)
 
@@ -63,3 +70,8 @@ def query_text(query):
 
 #RUN
 bot.polling(none_stop=True)
+
+if __name__ == '__main__':
+    # Bind to PORT if defined, otherwise default to 5000.
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
